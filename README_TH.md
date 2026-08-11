@@ -8,6 +8,7 @@ Worker นี้รับ payload จาก AI Voice Cloning Local และค�
 - `cosyvoice3` สำหรับภาษาจีนและภาษาอื่น
 - โหลดโมเดลครั้งแรกแบบ lazy และเก็บ cache ใน Network Volume
 - ใช้ `/runsync` ตาม backend ปัจจุบัน
+- มี `.runpod/hub.json` และ `.runpod/tests.json` ตาม worker template รุ่นปัจจุบัน
 
 ## 1. นำโฟลเดอร์ขึ้น GitHub
 
