@@ -17,6 +17,9 @@ RUN python -m pip install --upgrade pip setuptools wheel
 RUN printf "torch==2.3.1+cu121\ntorchaudio==2.3.1+cu121\n" > /app/torch-constraints.txt
 RUN python -m pip install --index-url https://download.pytorch.org/whl/cu121 "torch==2.3.1+cu121" "torchaudio==2.3.1+cu121"
 RUN python -m pip install --extra-index-url https://download.pytorch.org/whl/cu121 -c /app/torch-constraints.txt -r /app/requirements.txt
+# F5-TTS declares UI/training dependencies and unpinned audio wheels that can
+# replace the CUDA-matched Torch stack. The worker only needs its inference code.
+RUN python -m pip install --no-deps "f5-tts==1.1.22"
 RUN python -m pip install --index-url https://download.pytorch.org/whl/cu121 --force-reinstall --no-deps "torch==2.3.1+cu121" "torchaudio==2.3.1+cu121"
 RUN python - <<'PY'
 import torch
