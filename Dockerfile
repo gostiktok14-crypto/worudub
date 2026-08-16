@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN python -m pip install --upgrade pip setuptools wheel \
-    && python -m pip install --extra-index-url https://download.pytorch.org/whl/cu121 -r /app/requirements.txt \
+    && python -m pip install --index-url https://download.pytorch.org/whl/cu121 --no-deps "torchaudio==2.3.1+cu121" \
+    && python -m pip install -r /app/requirements.txt \
+    && python -m pip install --index-url https://download.pytorch.org/whl/cu121 --no-deps --force-reinstall "torchaudio==2.3.1+cu121" \
     && python - <<'PY'
 import torch
 import torchaudio

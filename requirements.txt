@@ -1,10 +1,6 @@
 runpod==1.11.0
 cached-path==1.8.10
 huggingface-hub>=0.28,<1.0
-# Keep the audio stack matched with the CUDA 12.1 PyTorch base image.
-# A mismatched torchaudio wheel fails at runtime with libtorchaudio.so load errors.
-torch==2.3.1
-torchaudio==2.3.1
 f5-tts==1.1.22
 soundfile==0.12.1
 pydub==0.25.1
