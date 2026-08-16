@@ -20,7 +20,6 @@ transformers==4.51.3
 x-transformers==2.11.24
 wetext==0.0.4
 onnxruntime-gpu==1.18.0
-openai-whisper==20231117
 pyarrow==18.1.0
 pyworld==0.3.4
 networkx==3.1
