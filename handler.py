@@ -155,7 +155,7 @@ def _jaitts_generate(data: dict[str, Any], ref_audio: Path, output_path: Path) -
         speed=speed, fix_duration=fix_duration, file_wave=str(output_path), seed=-1,
     )
     if (not output_path.exists() or output_path.stat().st_size < 1000) and isinstance(result, tuple) and len(result) >= 2:
-        sf.write(str(output_path), result[1], int(result[0]))
+        sf.write(str(output_path), result[0], int(result[1]))
     return 24000
 
 
