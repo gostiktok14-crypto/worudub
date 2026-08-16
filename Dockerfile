@@ -13,11 +13,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
-RUN python -m pip install --upgrade pip setuptools wheel \
-    && python -m pip install --index-url https://download.pytorch.org/whl/cu121 --no-deps "torchaudio==2.3.1+cu121" \
-    && python -m pip install -r /app/requirements.txt \
-    && python -m pip install --index-url https://download.pytorch.org/whl/cu121 --no-deps --force-reinstall "torchaudio==2.3.1+cu121" \
-    && python - <<'PY'
+RUN python -m pip install --upgrade pip setuptools wheel
+RUN printf "torch==2.3.1+cu121\ntorchaudio==2.3.1+cu121\n" > /app/torch-constraints.txt
+RUN python -m pip install --index-url https://download.pytorch.org/whl/cu121 "torch==2.3.1+cu121" "torchaudio==2.3.1+cu121"
+RUN python -m pip install --extra-index-url https://download.pytorch.org/whl/cu121 -c /app/torch-constraints.txt -r /app/requirements.txt
+RUN python -m pip install --index-url https://download.pytorch.org/whl/cu121 --force-reinstall --no-deps "torch==2.3.1+cu121" "torchaudio==2.3.1+cu121"
+RUN python - <<'PY'
 import torch
 import torchaudio
 print("torch", torch.__version__, "cuda", torch.version.cuda)
