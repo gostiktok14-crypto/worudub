@@ -146,7 +146,7 @@ def _jaitts_generate(data: dict[str, Any], ref_audio: Path, output_path: Path) -
     if text[-1:] not in ".!?…。！？":
         text += "."
     spoken_chars = len(re.sub(r"[\s,.;:!?…。]+", "", text))
-    fix_duration = max(1.4, spoken_chars * 0.082 / speed) + 0.5
+    fix_duration = float(sf.info(str(ref_audio)).duration) + max(1.4, spoken_chars * 0.082 / speed) + 0.5
     result = model.infer(
         ref_file=str(ref_audio), ref_text=ref_text, gen_text=text,
         show_info=lambda message: print(str(message), flush=True),
