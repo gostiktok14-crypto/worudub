@@ -198,6 +198,16 @@ def handler(job: dict[str, Any]) -> dict[str, Any]:
             "status": "READY", "cuda": torch.cuda.is_available(),
             "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         }
+    if data.get("diagnostic") == "torch_audio":
+        import torchaudio
+
+        return {
+            "status": "READY",
+            "torch": torch.__version__,
+            "torch_cuda": torch.version.cuda,
+            "torchaudio": torchaudio.__version__,
+            "cuda": torch.cuda.is_available(),
+        }
     work_dir = Path(tempfile.mkdtemp(prefix="runpod-tts-"))
     try:
         _progress(job, "Preparing reference audio")
